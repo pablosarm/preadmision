@@ -1,0 +1,685 @@
+<title>Preadmisión Propuesta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f9; --surface:#fff; --surface-2:#f8fafc; --line:#e3e8ef; --line-2:#cfd7e2;
+  --text:#0f1b2d; --muted:#5b6b80; --faint:#8a97a8;
+  --brand:#0b6bcb; --brand-50:#e8f2fc; --brand-600:#0a5bb0;
+  --ok:#14804a; --ok-50:#e6f5ec; --warn:#b4610a; --warn-50:#fdf1e3; --danger:#c62f2f; --danger-50:#fdeaea;
+  --stage:#f9b428; --rail:#2d323e;
+  --r:12px; --r-sm:8px; --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.06);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0e1420; --surface:#151d2b; --surface-2:#1a2435; --line:#263247; --line-2:#33415a;
+  --text:#e7edf6; --muted:#9fb0c6; --faint:#71839b; --brand:#4b9cf0; --brand-50:#16294a; --brand-600:#6aaef3;
+  --ok:#45c07c; --ok-50:#123222; --warn:#f0a548; --warn-50:#3a2812; --danger:#f07070; --danger-50:#3a1717;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1420; --surface:#151d2b; --surface-2:#1a2435; --line:#263247; --line-2:#33415a;
+  --text:#e7edf6; --muted:#9fb0c6; --faint:#71839b; --brand:#4b9cf0; --brand-50:#16294a; --brand-600:#6aaef3;
+  --ok:#45c07c; --ok-50:#123222; --warn:#f0a548; --warn-50:#3a2812; --danger:#f07070; --danger-50:#3a1717;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:14px/1.45 "Open Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.stage{background:var(--stage);color:#1a237e;text-align:center;font-size:15px;font-weight:500;padding:8px 16px 8px 82px;display:flex;align-items:center;gap:12px}
+.stage .mi{color:#555}.stage .home{color:#5f5f5f;font-size:16px}.stage .msg{flex:1}
+.stage .who{font-size:13px;color:#222;text-align:right;line-height:1.1}.stage .who small{display:block;font-size:10px;color:#7a6a3a}
+body{padding-left:66px}
+.rail{position:fixed;left:0;top:0;bottom:0;width:66px;background:var(--rail);z-index:40;display:flex;flex-direction:column;align-items:center;padding:6px 0;gap:2px;box-shadow:2px 0 6px rgba(0,0,0,.25)}
+.rail .logo{height:32px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.rail .logo img{height:28px}
+.rail .logo .fb{display:none;color:#fff;font-weight:700;font-size:13px;letter-spacing:.02em}
+.rail a{width:66px;height:34px;display:grid;place-items:center;color:#fff;opacity:.85;text-decoration:none;position:relative}
+.rail a:hover{opacity:1;background:rgba(255,255,255,.08)}
+.rail a.on{opacity:1;background:rgba(255,255,255,.12);box-shadow:inset 3px 0 0 var(--stage)}
+.rail a .material-icons{font-size:18px}
+.rail a[data-tip]:hover::after{content:attr(data-tip);position:absolute;left:70px;top:6px;background:#111;color:#fff;font-size:11px;padding:3px 8px;border-radius:4px;white-space:nowrap}
+.mi{font-family:"Material Icons";font-weight:normal;font-style:normal;font-size:18px;line-height:1;display:inline-block;vertical-align:middle;-webkit-font-smoothing:antialiased;font-feature-settings:"liga"}
+@media (max-width:700px){body{padding-left:0}.rail{display:none}.stage{padding-left:16px;font-size:13px}.stage .who{display:none}}
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top-in{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px 20px}
+.crumb{color:var(--muted);font-size:13px}.crumb b{color:var(--text);font-weight:600}
+.spacer{flex:1}
+.save{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.btn{border:1px solid var(--line-2);background:var(--surface);border-radius:var(--r-sm);padding:8px 14px;font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-600)}
+.btn.primary[disabled]{opacity:.45;cursor:not-allowed}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--brand)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.notes{border-color:var(--warn);color:var(--warn);background:var(--warn-50)}
+/* patient strip */
+.pstrip{max-width:1320px;margin:0 auto;padding:0 20px 12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--brand-50);color:var(--brand);display:grid;place-items:center;font-weight:700}
+.pname{font-weight:600;font-size:16px}
+.pmeta{color:var(--muted);font-size:13px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+.tag.brand{background:var(--brand-50);color:var(--brand);border-color:transparent}
+.tag.danger{background:var(--danger-50);color:var(--danger);border-color:transparent}
+.tag.ok{background:var(--ok-50);color:var(--ok);border-color:transparent}
+/* layout */
+.wrap{max-width:1320px;margin:0 auto;padding:20px;display:grid;grid-template-columns:220px minmax(0,1fr) 300px;gap:20px;align-items:start}
+@media (max-width:1100px){.wrap{grid-template-columns:minmax(0,1fr)}.side,.steps{position:static!important}.steps ol{display:flex;overflow-x:auto;gap:6px}.steps li{flex:0 0 auto}}
+.steps{position:sticky;top:120px}
+.steps ol{list-style:none;margin:0;padding:0}
+.steps li button{width:100%;display:flex;gap:10px;align-items:center;text-align:left;border:0;background:transparent;padding:10px;border-radius:var(--r-sm);color:var(--muted)}
+.steps li button:hover{background:var(--surface)}
+.steps li.on button{background:var(--surface);color:var(--text);box-shadow:var(--shadow);font-weight:600}
+.num{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;font-size:12px;font-weight:600;flex:0 0 auto;background:var(--surface)}
+.steps li.on .num{border-color:var(--brand);color:var(--brand)}
+.steps li.done .num{background:var(--ok);border-color:var(--ok);color:#fff}
+.steps small{display:block;font-weight:400;font-size:12px;color:var(--faint)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.main .card{padding:24px}
+.h{margin:0 0 4px;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.sub{margin:0 0 20px;color:var(--muted)}
+.sec{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.sec:first-of-type{margin-top:0;padding-top:0;border-top:0}
+.sec h3{margin:0 0 12px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.sec h3 .opt{font-weight:400;color:var(--faint);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:700px){.grid,.grid.g3{grid-template-columns:minmax(0,1fr)}}
+.f label{display:block;font-size:13px;font-weight:500;margin-bottom:6px}
+.f label .req{color:var(--danger)}
+.f .hint{font-size:12px;color:var(--faint);margin-top:4px}
+.in{width:100%;border:1px solid var(--line-2);background:var(--surface);border-radius:var(--r-sm);padding:9px 12px;outline:none}
+.in:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-50)}
+textarea.in{min-height:96px;resize:vertical}
+.miss .in,.miss .chips{outline:2px solid var(--danger-50);outline-offset:2px;border-color:var(--danger)}
+.flash{animation:flash 1.2s}
+@keyframes flash{0%,100%{box-shadow:none}30%{box-shadow:0 0 0 4px var(--warn-50)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;border-radius:var(--r-sm)}
+.chip{border:1px solid var(--line-2);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:500;font-size:13px}
+.chip:hover{border-color:var(--brand)}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.chip .ic{margin-right:4px}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:700px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{border:1px solid var(--line-2);background:var(--surface);border-radius:var(--r-sm);padding:12px;text-align:left;display:flex;flex-direction:column;gap:4px}
+.tile:hover{border-color:var(--brand)}
+.tile.on{border-color:var(--brand);background:var(--brand-50);box-shadow:inset 0 0 0 1px var(--brand)}
+.tile .ti{font-size:20px}
+.tile b{font-size:13px}
+.urg{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2)}
+.urg.on{background:var(--danger-50);border-color:var(--danger)}
+.sw{position:relative;width:40px;height:22px;border-radius:999px;background:var(--line-2);border:0;flex:0 0 auto;transition:.15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.15s}
+.sw.on{background:var(--brand)}.urg.on .sw.on{background:var(--danger)}
+.sw.on::after{left:21px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.prof{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:var(--r-sm)}
+.prof .avatar{width:34px;height:34px;font-size:13px}
+.search{position:relative}
+.search .in{padding-left:38px;height:44px;font-size:15px}
+.search .mag{position:absolute;left:12px;top:13px;color:var(--faint)}
+.results{margin-top:8px;border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
+.res{display:flex;align-items:center;gap:12px;padding:10px 12px;border:0;border-bottom:1px solid var(--line);background:var(--surface);width:100%;text-align:left}
+.res:last-child{border-bottom:0}
+.res:hover{background:var(--brand-50)}
+.res .grow{flex:1;min-width:0}
+.pcard{display:flex;gap:16px;align-items:flex-start;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2)}
+.kv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
+@media (max-width:700px){.kv{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kv div{min-width:0;overflow-wrap:anywhere}
+.kv div small{display:block;color:var(--faint);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-weight:600;color:#fff;background:#1976d2;font-size:12px;padding:8px}
+.tbl td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl input.qty{width:64px;padding:5px 8px}
+.icbtn{border:0;background:transparent;color:var(--faint);padding:4px 6px;border-radius:6px}
+.icbtn:hover{background:var(--danger-50);color:var(--danger)}
+.proc{border:1px solid var(--line);border-radius:var(--r);margin-top:14px;overflow:hidden}
+.proc-h{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.proc-b{padding:14px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+@media (max-width:800px){.proc-b{grid-template-columns:minmax(0,1fr)}}
+.mini{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px}
+.docs{display:flex;flex-direction:column;gap:6px}
+.doc{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--r-sm)}
+.doc.on{background:var(--ok-50);border-color:transparent}
+.doc .grow{flex:1;min-width:0}
+.docact{display:flex;gap:2px;flex:0 0 auto}.docact .icbtn{color:var(--brand)}.docact .icbtn:hover{background:var(--brand-50);color:var(--brand)}
+.proc-b .docact .icbtn{padding:4px 3px}
+.doc small{color:var(--faint)}
+.cb{width:18px;height:18px;accent-color:var(--ok)}
+.empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--line-2);border-radius:var(--r-sm)}
+.ac{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);box-shadow:0 8px 24px rgba(16,24,40,.12);z-index:10;max-height:280px;overflow:auto}
+.ac button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:9px 12px}
+.ac button:hover,.ac button.hl{background:var(--brand-50)}
+.ac small{color:var(--faint)}
+/* footer nav */
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+/* side */
+.side{position:sticky;top:120px;display:flex;flex-direction:column;gap:14px}
+.side .card{padding:16px}
+.side h4{margin:0 0 10px;font-size:13px;font-weight:600}
+.prog{height:6px;background:var(--line);border-radius:999px;overflow:hidden;margin:6px 0 12px}
+.prog i{display:block;height:100%;background:var(--ok);transition:width .25s}
+.chk{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.chk li button{width:100%;display:flex;gap:8px;align-items:center;border:0;background:transparent;padding:5px 6px;border-radius:6px;text-align:left;font-size:13px;color:var(--text)}
+.chk li button:hover{background:var(--surface-2)}
+.chk .st{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line-2);flex:0 0 auto;display:grid;place-items:center;font-size:10px;color:#fff}
+.chk li.ok .st{background:var(--ok);border-color:var(--ok)}
+.chk li.ok button{color:var(--muted)}
+.sumrow{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0}
+.sumrow span:first-child{color:var(--muted)}
+.sumrow span:last-child{text-align:right;font-weight:500}
+/* notes drawer */
+.drawer{position:fixed;inset:0;z-index:50;display:none}
+.drawer.open{display:block}
+.drawer .bk{position:absolute;inset:0;background:rgba(10,20,35,.4)}
+.drawer .pn{position:absolute;right:0;top:0;bottom:0;width:min(520px,100%);background:var(--surface);overflow:auto;padding:24px;box-shadow:-8px 0 30px rgba(0,0,0,.15)}
+.note{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.note .n{width:24px;height:24px;border-radius:50%;background:var(--warn-50);color:var(--warn);display:grid;place-items:center;font-weight:700;font-size:12px}
+.note p{margin:2px 0}
+.note .bad{color:var(--danger)}
+.note .good{color:var(--ok)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0f1b2d;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;z-index:60;opacity:0;transition:.2s;pointer-events:none}
+.toast.show{opacity:1}
+.timeline{display:flex;gap:0;margin:20px 0}
+.tl{flex:1;text-align:center;position:relative;font-size:12px;color:var(--muted)}
+.tl::before{content:"";position:absolute;top:13px;left:-50%;right:50%;height:2px;background:var(--line-2)}
+.tl:first-child::before{display:none}
+.tl .num{margin:0 auto 6px;position:relative}
+.tl.done .num{background:var(--ok);border-color:var(--ok);color:#fff}
+.tl.done::before{background:var(--ok)}
+.tl.cur .num{border-color:var(--brand);color:var(--brand)}
+.dnote{display:flex;gap:8px;align-items:flex-start;margin:8px 0;padding:8px 10px;border-radius:8px;background:#fff8e1;border:1px dashed #e0a800;color:#6b4e00;font-size:12.5px;line-height:1.4}
+.dnote .mi{font-size:16px;color:#c78a00;flex:0 0 auto}
+body:not(.notes-on) .dnote{display:none}
+.btn.notes.on{background:var(--warn);color:#fff}
+kbd{font:11px ui-monospace,monospace;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;padding:0 4px;color:var(--muted)}
+</style>
+<nav class="rail" aria-label="Módulos">
+  <div class="logo"><span class="material-icons" style="color:#fff;font-size:24px">local_hospital</span></div>
+  <a href="#" class="" data-tip="Efectores" onclick="return false"><span class="material-icons">list</span></a>
+  <a href="#" class="" data-tip="Básico" onclick="return false"><span class="material-icons">bar_chart</span></a>
+  <a href="#" class="" data-tip="Empadronamiento" onclick="return false"><span class="material-icons">person_outline</span></a>
+  <a href="#" class="" data-tip="Facturación" onclick="return false"><span class="material-icons">attach_money</span></a>
+  <a href="#" class="" data-tip="Guardia" onclick="return false"><span class="material-icons">add</span></a>
+  <a href="#" class="on" data-tip="Internación (V2)" onclick="return false"><span class="material-icons">accessible</span></a>
+  <a href="#" class="" data-tip="Liquidación honorarios" onclick="return false"><span class="material-icons">attach_money</span></a>
+  <a href="#" class="" data-tip="Reportes" onclick="return false"><span class="material-icons">bar_chart</span></a>
+  <a href="#" class="" data-tip="Historia clínica" onclick="return false"><span class="material-icons">medical_services</span></a>
+  <a href="#" class="" data-tip="Farmacia" onclick="return false"><span class="material-icons">medical_services</span></a>
+  <a href="#" class="" data-tip="Consultorio médico" onclick="return false"><span class="material-icons">medical_services</span></a>
+  <a href="#" class="" data-tip="Farmacia público" onclick="return false"><span class="material-icons">medical_services</span></a>
+  <a href="#" class="" data-tip="Configuración" onclick="return false"><span class="material-icons">settings</span></a>
+  <a href="#" class="" data-tip="Salir" onclick="return false"><span class="material-icons">power_settings_new</span></a>
+  <a href="#" class="" data-tip="Políticas" onclick="return false"><span class="material-icons">description</span></a>
+</nav>
+<div class="stage"><span class="mi">menu</span><span class="home">Home</span><span class="msg">Atención. Esta trabajando sobre un entorno de PRUEBAS · <b>Prototipo de propuesta</b></span><span class="mi">person_outline</span><span class="who">Pablo Sarmiento<small>Mis Datos</small></span></div>
+<header class="top">
+  <div class="top-in">
+    <div class="crumb">Internación › <a href="#" onclick="return false" style="color:var(--brand);text-decoration:none">Preadmisiones</a> › <b>Nueva preadmisión</b></div>
+    <div class="spacer"></div>
+    <div class="save" id="saveState"><span class="dot"></span><span>Borrador guardado</span></div>
+    <button class="btn sm notes" id="notesBtn" data-a="toggleNotes"><span class="mi" style="font-size:16px">sticky_note_2</span><span> Mostrar notas</span></button>
+    <button class="btn sm" data-a="notes">Qué cambia (23)</button>
+    <button class="btn sm" data-a="exit">Salir</button>
+  </div>
+  <div class="pstrip" id="pstrip"></div>
+</header>
+
+<div class="wrap" id="app">
+  <nav class="steps" aria-label="Pasos"><ol id="steps"></ol></nav>
+  <main class="main"><div class="card" id="stepCard"></div></main>
+  <aside class="side" id="side"></aside>
+</div>
+
+<div class="drawer" id="drawer"><div class="bk" data-a="notes"></div><div class="pn" id="notesPn"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- catálogos (relevados de stage) ---------- */
+const SUCURSALES=["Nueva Córdoba","Cerro","Consultorios Tejeda"];
+const ORIGENES=["Consultorio externo","Guardia","ART","Preadmisión"];
+const TIPOS=[["Clínica","hotel"],["Quirúrgico","medical_services"],["Endoscopía","biotech"],["Hemodinamia","monitor_heart"],["Oncológico","healing"],["Parto","pregnant_woman"],["Recién nacido","child_care"],["Trasplante","volunteer_activism"]];
+const SECT_QX=["Quirófano","Guardia","Hemodinamia","Partos","Sala post quirúrgica cesárea"];
+const SECT_CLIN=["2º piso","3º piso","4º piso","5º piso","4º piso VIP","6º piso VIP","Unidad Coronaria","Terapia Intensiva"];
+const sectores=()=>S.tipo&&!TIPOS_CON_PROC.includes(S.tipo)?SECT_CLIN:SECT_QX;
+const PROBLEMAS=[["I70.2","Isquemia crítica de miembros inferiores"],["I70.2","Claudicación intermitente de miembros inferiores"],["I10","Hipertensión arterial"],["K80.2","Litiasis vesicular sintomática"],["M17.1","Artrosis de rodilla"],["I25.1","Enfermedad coronaria"],["J18.9","Neumonía adquirida en la comunidad"]].map(x=>[...x,"Problema"]);
+const PROG=[["Cirugía programada","event_available","Quirúrgico"],["Procedimiento programado","event_available",null],["Estudio programado","biotech","Endoscopía"],["Parto / cesárea programada","pregnant_woman","Parto"],["Internación clínica","hotel","Clínica"]];
+/* "Tus más frecuentes": en producción saldría de las últimas internaciones de este médico */
+const FREQ=[{l:"Angioplastia periférica programada",tipo:"Hemodinamia",prog:"Procedimiento programado",proc:"Angioplastia periférica",dx:["I70.2","Isquemia crítica de miembros inferiores","Problema"],n:14},
+ {l:"Crisis hipertensiva",tipo:"Clínica",dx:["I16.1","Crisis hipertensiva – emergencia hipertensiva","CIE-10"],n:9},
+ {l:"Colecistectomía VLP programada",tipo:"Quirúrgico",prog:"Cirugía programada",proc:"Colecistectomía videolaparoscópica",dx:["K80.2","Litiasis vesicular sintomática","Problema"],n:6},
+ {l:"Angioplastia coronaria programada",tipo:"Hemodinamia",prog:"Procedimiento programado",proc:"Angioplastia coronaria",dx:["I25.1","Enfermedad coronaria","Problema"],n:4}];
+const DXS0=[["I16.1","Crisis hipertensiva – emergencia hipertensiva"],["I16.0","Crisis hipertensiva – urgencia hipertensiva"],["I16.9","Crisis hipertensiva, no especificada"],["J18.9","Neumonía, no especificada"],["I50.0","Insuficiencia cardíaca congestiva"],["I63.9","Accidente cerebrovascular isquémico"],["A41.9","Sepsis, no especificada"],["N39.0","Infección urinaria"],["E11.1","Diabetes tipo 2 con cetoacidosis"],["J44.1","EPOC reagudizado"],["I21.9","Infarto agudo de miocardio"],["K35.8","Apendicitis aguda"],["K80.2","Colelitiasis sin colecistitis"],["K40.9","Hernia inguinal"],["M17.1","Gonartrosis primaria"],["O82","Parto por cesárea"]];
+const DXS=[...PROBLEMAS,...DXS0.map(x=>[...x,"CIE-10"])];
+const SECTOR_INFO={"Quirófano":"1º piso","Guardia":"Planta baja","Hemodinamia":"1º subsuelo","Partos":"3º piso","Sala post quirúrgica cesárea":"3º piso","2º piso":"Sala común","3º piso":"Sala común","4º piso":"Sala común","5º piso":"Sala común","4º piso VIP":"Habitación VIP","6º piso VIP":"Habitación VIP","Unidad Coronaria":"Cuidados críticos","Terapia Intensiva":"Cuidados críticos"};
+const SECTOR_X_TIPO={"Quirúrgico":"Quirófano","Parto":"Partos","Hemodinamia":"Hemodinamia","Endoscopía":"Quirófano"};
+const TIPOS_CON_PROC=["Quirúrgico","Endoscopía","Hemodinamia","Parto","Trasplante"];
+const needsProc=()=>!S.tipo||TIPOS_CON_PROC.includes(S.tipo);
+const AISL=["Ninguno","Protección","Contacto","Respiratorio aéreo","Respiratorio por gotitas","Combinado"];
+const AISL_MOT=["Derivado de otra institución","Infectado o colonizado por un agente","Trasplantado","Gran quemadura no infectado","Heridas extensas en la piel","Escabiosis","Exudado abundante","Neutropenia","Otro motivo"];
+const MARCAS=["A definir","Depuy – J&J","Synthes – J&J","Implant","Zimmer","Medcare","Stryker","Implacor","Link","Promedon","Arthrex – Nexo"];
+const PREQ=[["Batería prequirúrgica básica","Hemograma, coagulograma, glucemia, urea, creatinina, ionograma, ECG"],["Batería mayor de 40 años","Básica + Rx de tórax + riesgo quirúrgico cardiológico"],["Grupo y factor","Grupo sanguíneo y factor Rh"],["Serologías","HIV, HBV, HCV, VDRL"]];
+const DOCS_BASE=[
+  ["Consentimiento informado de anestesia","Consentimiento Informado Anestesia.pdf"],
+  ["Consentimiento informado general","Consentimiento Informado General.pdf"],
+  ["Derechos y deberes del paciente","Derechos y Deberes.pdf"],
+  ["Guía de preadmisión internado","Guía Pre internación General.pdf"],
+  ["Rechazo de tratamiento o indicación médica","Rechazo Indicación Médica.pdf"]];
+const DOCS_CLINICA=[DOCS_BASE[1],DOCS_BASE[2],DOCS_BASE[3],DOCS_BASE[4]];
+const PROCS=[
+  {n:"Angioplastia periférica",preq:[0, 2, 3],items:[["180410","Angioplastia transluminal periférica"],["170109","Monitoraje"]],dias:[["Otras",1]]},
+  {n:"Apendicectomía",preq:[0, 2],items:[["80524","Apendicectomía"],["170109","Monitoraje operatorio"]],dias:[["Otras",2]]},
+  {n:"Apendicectomía por video",preq:[0, 2],items:[["80525","Apendicectomía videolaparoscópica"],["170109","Monitoraje operatorio"]],dias:[["Otras",1]]},
+  {n:"Apendicectomía complicada",preq:[0, 2],items:[["80524","Apendicectomía"],["170109","Monitoraje operatorio"]],dias:[["Otras",4]]},
+  {n:"Colecistectomía videolaparoscópica",preq:[0, 2],items:[["80611","Colecistectomía VLP"],["170109","Monitoraje operatorio"]],dias:[["Otras",1]]},
+  {n:"Hernioplastia inguinal",preq:[0],items:[["80901","Hernioplastia inguinal"]],dias:[["Otras",1]]},
+  {n:"Artroscopía de rodilla",preq:[0],items:[["120301","Artroscopía de rodilla"]],dias:[["Hospital de día",0]]},
+  {n:"Reemplazo total de rodilla",preq:[1, 2],items:[["120415","Artroplastia total de rodilla"],["170109","Monitoraje operatorio"]],dias:[["Otras",3]]},
+  {n:"Cesárea",preq:[0, 2, 3],items:[["110210","Cesárea"]],dias:[["Maternidad",3]]},
+  {n:"Colonoscopía con biopsia",preq:[],items:[["340120","Videocolonoscopía"],["340199","Biopsia"]],dias:[["Hospital de día",0]]},
+  {n:"Angioplastia coronaria",preq:[0, 2, 3],items:[["180330","Angioplastia transluminal"],["170109","Monitoraje"]],dias:[["Unidad Coronaria",1],["Otras",1]]}];
+const PROTESIS=["Malla de polipropileno 15x15","Prótesis total de rodilla cementada","Stent coronario liberador de droga","Clips hemostáticos (caja x6)","Trócar descartable 10 mm","Sutura mecánica lineal 60 mm"];
+const PACIENTES=[
+  {nom:"Pablo Sarmiento",dni:"35.578.410",nac:"03/11/1991",sexo:"M",cob:"DASPU Trasplantes",plan:"Sin plan",afil:"26879/0",tipoAf:"Obligatorio",mail:"pablo.s@ejemplo.com",tel:"",cobWarn:"La cobertura no está activa o no tiene convenio vigente."},
+  {nom:"Pablo Sarmiento",dni:"27.043.467",nac:"10/04/1979",sexo:"M",cob:"OSDE",plan:"310",afil:"6-1288-44",tipoAf:"Titular",mail:"",tel:"351 555-0101"},
+  {nom:"María Laura Gómez",dni:"31.442.900",nac:"21/08/1985",sexo:"F",cob:"APROSS",plan:"General",afil:"31442900/01",tipoAf:"Titular",mail:"mlgomez@ejemplo.com",tel:"351 555-0123"},
+  {nom:"Jorge Ferreyra",dni:"14.220.118",nac:"02/02/1959",sexo:"M",cob:"PAMI",plan:"—",afil:"150099887766",tipoAf:"Titular",mail:"",tel:"351 555-0177"}];
+const ME={nom:"Sarmiento, Pablo Ezequiel",mat:"37366",servicios:["Guardia"]};
+const OTROS_PROF=[{nom:"Rodríguez, Ana",mat:"28411",servicios:["Cirugía general","Guardia"]},{nom:"Paz, Martín",mat:"30902",servicios:["Traumatología"]},{nom:"Luna, Carolina",mat:"33150",servicios:["Gastroenterología"]}];
+
+/* ---------- estado ---------- */
+const today=new Date();
+const iso=d=>d.toISOString().slice(0,10);
+const S={step:0,patient:PACIENTES[0],q:"",contactos:[],garante:false,sucursal:"Nueva Córdoba",origen:null,urgente:false,tipo:null,fecha:iso(today),fechaCx:iso(today),
+  solic:ME,aCargoMismo:true,aCargo:ME,servicio:"Guardia",hc:"",dx:"",procs:[],sector:null,diasProb:null,resumenProc:"",
+  docComprende:false,docsClin:DOCS_CLINICA.map(([n,f])=>({n,f,on:false})),protesis:[],protObs:"",aisl:"Ninguno",aislMot:null,aislObs:"",preq:new Set(),dxSel:null,prog:null,changing:false,needProc:false,diasManual:false,obs:"",sent:false,tried:new Set(),visited:new Set([0])};
+const allDocs=()=>needsProc()||S.procs.length?S.procs.flatMap(p=>p.docs):S.docsClin;
+const STEPS=[["Paciente","Quién se interna"],["Internación",""],["Plan","Procedimiento si hay · sector"],["Adicionales","Prótesis, aislamiento, notas"],["Revisar y enviar","Último control"]];
+
+/* requisitos: [id, etiqueta, paso, ok()] */
+const REQ=[
+ ["patient","Paciente seleccionado",0,()=>!!S.patient],
+ ["sucursal","Sucursal",1,()=>!!S.sucursal],
+ ["origen","Origen de la solicitud",1,()=>!!S.origen],
+ ["tipo","Tipo de internación",1,()=>!!S.tipo],
+ ["fecha","Fecha probable",1,()=>!!S.fecha],
+ ["servicio","Servicio del profesional",1,()=>!!S.servicio],
+ ["hc","Resumen de historia clínica",1,()=>S.hc.trim().length>0],
+ ["dx","Motivo de internación",1,()=>!!S.prog||!!S.dxSel||S.dx.trim().length>0],
+ ["procs","Al menos un procedimiento",2,()=>S.procs.length>0,needsProc],
+ ["sector","Sector de ingreso",2,()=>!!S.sector],
+ ["resumenProc","Resumen del procedimiento",2,()=>S.resumenProc.trim().length>0,needsProc],
+ ["docs","Documentación entregada",2,()=>allDocs().length>0&&allDocs().every(d=>d.on)&&S.docComprende],
+];
+/* requisitos activos según el tipo de internación */
+const RQ=()=>REQ.filter(r=>!r[4]||r[4]());
+const reqOk=()=>RQ().filter(r=>r[3]()).length;
+const stepOk=i=>RQ().filter(r=>r[2]===i).every(r=>r[3]());
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const motivo=()=>[S.prog,S.dxSel?`${S.dxSel[1]} (${S.dxSel[0]})`:S.dx.trim()].filter(Boolean).join(" · ");
+const N=t=>`<div class="dnote"><span class="mi">sticky_note_2</span><span><b>Hoy:</b> ${t}</span></div>`;
+const ini=n=>n.replace(/,/g,"").split(" ").filter(Boolean).slice(0,2).map(x=>x[0]).join("").toUpperCase();
+const age=n=>{const[d,m,y]=n.split("/").map(Number);const b=new Date(y,m-1,d);let a=today.getFullYear()-b.getFullYear();if(today<new Date(today.getFullYear(),m-1,d))a--;return a};
+const fmtDate=s=>{if(!s)return"—";const[y,m,d]=s.split("-");return `${d}/${m}/${y}`};
+const addDays=n=>{const d=new Date(today);d.setDate(d.getDate()+n);return iso(d)};
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const miss=id=>S.tried.has(S.step)&&RQ().find(r=>r[0]===id&&!r[3]())?" miss":"";
+let saveT;function touched(){const el=$("#saveState");el.innerHTML='<span class="dot" style="background:var(--warn)"></span><span>Guardando…</span>';clearTimeout(saveT);saveT=setTimeout(()=>{el.innerHTML='<span class="dot"></span><span>Borrador guardado · recién</span>'},700);renderSide();renderSteps()}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2200)}
+
+/* ---------- render ---------- */
+function renderStrip(){
+  const p=S.patient;
+  $("#pstrip").innerHTML=p?`<div class="avatar">${ini(p.nom)}</div>
+   <div><div class="pname">${esc(p.nom)}</div><div class="pmeta">DNI ${p.dni} · ${age(p.nac)} años · ${p.sexo==="M"?"Masculino":"Femenino"} · ${esc(p.cob)} (${esc(p.afil)})</div></div>
+   ${S.urgente?'<span class="tag danger">● URGENTE</span>':'<span class="tag">Programado</span>'}
+   ${S.tipo?`<span class="tag brand">${esc(S.tipo)}</span>`:""}
+   ${S.fecha?`<span class="tag">Ingreso ${fmtDate(S.fecha)}</span>`:""}
+   <span class="tag">${S.sent?"Enviada a Admisión":"Borrador"}</span>`
+   :`<div class="pmeta">Sin paciente seleccionado</div>`;
+}
+function renderSteps(){
+  const dn=i=>i<4&&i!==S.step&&stepOk(i)&&S.visited.has(i);
+  $("#steps").innerHTML=STEPS.map((s,i)=>`<li class="${i===S.step?"on":""} ${dn(i)?"done":""}">
+   <button data-a="go" data-i="${i}"><span class="num">${dn(i)?"✓":i+1}</span><span>${s[0]}</span></button></li>`).join("");
+}
+function renderSide(){
+  const n=reqOk(),t=RQ().length,pct=Math.round(n/t*100);
+  const pend=RQ().filter(r=>!r[3]());
+  $("#side").innerHTML=`<div class="card">
+    <h4>Obligatorios <span style="float:right;color:var(--muted);font-weight:500">${n}/${t}</span></h4>
+    <div class="prog"><i style="width:${pct}%"></i></div>
+    <ul class="chk">${RQ().map(r=>`<li class="${r[3]()?"ok":""}"><button data-a="jump" data-id="${r[0]}" data-i="${r[2]}"><span class="st">${r[3]()?"✓":""}</span>${r[1]}</button></li>`).join("")}</ul>
+    <button class="btn primary" style="width:100%;justify-content:center;margin-top:14px" data-a="${pend.length?"go":"send"}" data-i="4" ${S.sent?"disabled":""}>${S.sent?"Enviada ✓":pend.length?(pend.length===1?"Falta 1 dato":`Faltan ${pend.length} datos`):"Enviar preadmisión"}</button>
+  </div>
+  ${N("no hay ninguna vista de qué falta; los errores aparecen de a uno al guardar.")}`;
+}
+const chips=(arr,val,key,miss="")=>`<div class="chips${miss}">${arr.map(o=>`<button class="chip ${o===val?"on":""}" data-a="set" data-k="${key}" data-v="${esc(o)}">${esc(o)}</button>`).join("")}</div>`;
+const navBar=()=>`<div class="nav">
+  ${S.step>0?`<button class="btn" data-a="prev">← Anterior</button>`:"<span></span>"}
+  ${S.step<4?`<button class="btn primary" data-a="next">Siguiente: ${STEPS[S.step+1][0]} →</button>`:""}</div>`;
+
+function stepPaciente(){
+  const p=S.patient;
+  const q=norm(S.q.trim());
+  const res=q.length>=2?PACIENTES.filter(x=>norm(x.nom).includes(q)||x.dni.replace(/\./g,"").includes(q.replace(/\./g,""))):[];
+  return `<h2 class="h">Paciente</h2>${N("4 campos + Buscar + clic en la fila + «Seleccionar». El buscador sigue en Preadmisiones; acá solo se cambia si hace falta.")}
+  ${S.changing?`<div class="sec">
+    <div class="search"><span class="mag mi">search</span><input id="pq" class="in" placeholder="DNI o apellido y nombre…" value="${esc(S.q)}" autocomplete="off"></div>
+    ${q.length>=2?`<div class="results">${res.length?res.map((x,i)=>`<button class="res" data-a="pick" data-i="${PACIENTES.indexOf(x)}"><div class="avatar" style="width:34px;height:34px;font-size:13px">${ini(x.nom)}</div>
+       <div class="grow"><b>${esc(x.nom)}</b><div class="pmeta">DNI ${x.dni} · ${x.nac} (${age(x.nac)} años) · ${esc(x.cob)}</div></div><span class="btn sm">Seleccionar</span></button>`).join(""):`<div class="empty">Sin resultados. <button class="btn ghost sm">+ Dar de alta paciente</button></div>`}</div>`:""}
+    <button class="btn ghost sm" style="margin-top:6px" data-a="changeP">Cancelar cambio</button>
+  </div>
+  </div>`:""}
+  ${p?`<div class="sec"><h3>Paciente seleccionado</h3>
+    <div class="pcard"><div class="avatar">${ini(p.nom)}</div><div style="flex:1;min-width:0">
+      <div class="row"><b style="font-size:16px">${esc(p.nom)}</b>${p.cobWarn?'<span class="tag" style="background:var(--warn-50);color:var(--warn);border-color:transparent">⚠ Revisar cobertura</span>':'<span class="tag ok">Cobertura activa</span>'}</div>
+      ${p.cobWarn?N("este aviso aparece recién al guardar, después de cargar todo.")+`<div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--warn-50);color:var(--warn);font-size:13px">⚠ ${esc(p.cobWarn)} Podés continuar; Admisión lo valida.</div>`:""}
+      <div class="kv">
+        <div><small>DNI</small>${p.dni}</div><div><small>Nacimiento</small>${p.nac} · ${age(p.nac)} años</div>
+        <div><small>Email</small>${p.mail||'<span style="color:var(--warn)">Falta — agregar</span>'}</div><div><small>Teléfono</small>${p.tel||'<span style="color:var(--warn)">Falta — agregar</span>'}</div>
+        <div><small>Cobertura</small>${esc(p.cob)}</div><div><small>Plan</small>${esc(p.plan)}</div><div><small>Nº afiliado</small>${esc(p.afil)}</div><div><small>Tipo</small>${esc(p.tipoAf)}</div>
+      </div></div><div style="display:flex;flex-direction:column;gap:6px"><button class="btn sm" data-a="changeP"><span class="mi">swap_horiz</span> Cambiar paciente</button><button class="btn sm" data-a="toast" data-t="Edición de datos del paciente (inline)"><span class="mi">edit</span> Editar datos</button></div></div></div>
+  <div class="sec"><h3>Contacto de referencia <span class="opt">opcional</span></h3>
+    ${S.contactos.map((c,i)=>`<div class="grid g3" style="margin-bottom:8px"><input class="in" data-m="contacto" data-i="${i}" data-f="nom" placeholder="Nombre" value="${esc(c.nom)}"><input class="in" data-m="contacto" data-i="${i}" data-f="rel" placeholder="Vínculo (ej. esposa)" value="${esc(c.rel)}"><input class="in" data-m="contacto" data-i="${i}" data-f="tel" placeholder="Teléfono" value="${esc(c.tel)}"></div>`).join("")}
+    <div class="row"><button class="btn sm" data-a="addContacto">+ Agregar contacto</button>
+    <label class="row" style="font-size:13px"><input type="checkbox" class="cb" data-m="garante" ${S.garante?"checked":""}> El contacto es garante</label></div></div>`:""}
+  ${navBar()}`;
+}
+function stepInternacion(){
+  const prof=[ME,...OTROS_PROF];
+  return `<h2 class="h">Internación</h2>
+  <div class="sec"><div class="urg ${S.urgente?"on":""}"><button class="sw ${S.urgente?"on":""}" data-a="urg" aria-label="Es urgente"></button>
+    <div><b>${S.urgente?"URGENTE":"Urgente"}</b>${S.urgente?`<div class="pmeta">Admisión la prioriza.</div>`:""}</div></div></div>
+  <div class="sec"><div class="f${miss("dx")}" data-f="dx"><label style="font-size:15px">Motivo de internación <span class="req">*</span></label>${N("el motivo es texto libre y la búsqueda de «procedimiento» no encuentra «crisis» ni «hipertensiva»; hay que adivinar «Internación no quirúrgica» o usar el comodín «Nuevo procedimiento».")}
+    <label style="font-weight:500;font-size:13px;margin-top:4px;display:${S.prog?"block":"none"}"></label>
+    <div class="search"><span class="mag mi">search</span><input id="dxQ" class="in" placeholder="${S.prog?"Diagnóstico de base (opcional)":"Buscar problema o CIE-10…"}" autocomplete="off"><div id="dxAc"></div></div>
+    ${S.dxSel?`<div class="row" style="margin-top:8px"><span class="tag brand" style="font-size:13px">${esc(S.dxSel[1])} · ${S.dxSel[2]==="Problema"?"Lista de problemas · ":""}CIE-10 ${S.dxSel[0]}</span><button class="btn ghost sm" data-a="dxClear">Cambiar</button></div>`:''}
+    <textarea class="in" style="margin-top:8px;min-height:56px" data-m="dx" maxlength="500" placeholder="Detalle (opcional)">${esc(S.dx)}</textarea>
+    
+    <div class="row" style="margin:6px 0 8px">${PROG.map(([l,ic])=>`<button class="chip ${S.prog===l?"on":""}" data-a="prog" data-v="${esc(l)}"><span class="mi" style="font-size:16px;margin-right:4px">${ic}</span>${l}</button>`).join("")}</div>
+    <div class="row" style="margin:0 0 12px"><span class="pmeta" style="min-width:86px"><span class="mi" style="font-size:16px;color:var(--warn)">auto_awesome</span> Frecuentes</span>${FREQ.map((f,i)=>`<button class="chip" style="border-style:dashed" data-a="freq" data-i="${i}" title="Usado ${f.n} veces en los últimos 6 meses">${esc(f.l)} <small style="color:var(--faint)">· ${f.n}</small></button>`).join("")}</div>
+    ${S.prog?`<div class="row" style="margin-bottom:8px"><span class="tag brand" style="font-size:13px"><span class="mi" style="font-size:15px">event_available</span> ${esc(S.prog)}</span><button class="btn ghost sm" data-a="progClear">Quitar</button></div>`:""}
+  </div></div>
+  <div class="sec"><h3>Tipo de internación <span style="color:var(--danger)">*</span></h3>
+    ${N("Tipo, Sucursal y Origen son menús que arrancan en «--SELECCIONAR--».")}<div class="tiles${miss("tipo")}" data-f="tipo">${TIPOS.map(([t,ic])=>`<button class="tile ${S.tipo===t?"on":""}" data-a="set" data-k="tipo" data-v="${t}"><span class="ti mi" style="font-size:22px;color:var(--brand)">${ic}</span><b>${t}</b></button>`).join("")}</div></div>
+  <div class="sec grid">
+    <div class="f" data-f="sucursal"><label>Sucursal <span class="req">*</span></label>${chips(SUCURSALES,S.sucursal,"sucursal",miss("sucursal"))}</div>
+    <div class="f" data-f="origen"><label>Origen de la solicitud <span class="req">*</span></label>${chips(ORIGENES,S.origen,"origen",miss("origen"))}</div>
+  </div>
+  <div class="sec"><div class="f${miss("fecha")}" data-f="fecha"><label>Fecha probable de internación <span class="req">*</span></label>
+    <div class="row"><input type="date" class="in" style="max-width:200px" data-m="fecha" value="${S.fecha}">
+    ${[["Hoy",0],["Mañana",1],["En 7 días",7],["En 15 días",15]].map(([l,n])=>`<button class="chip ${S.fecha===addDays(n)?"on":""}" data-a="fecha" data-n="${n}">${l}</button>`).join("")}</div></div>
+    ${S.tipo==="Quirúrgico"?`<div class="f" style="margin-top:14px"><label>Fecha probable de cirugía</label><div class="row"><input type="date" class="in" style="max-width:200px" data-m="fechaCx" value="${S.fechaCx}">${S.fechaCx&&S.fecha&&S.fechaCx<S.fecha?'<span class="hint" style="color:var(--danger)">La cirugía no puede ser antes de la internación.</span>':S.fechaCxManual?`<a href="#" class="hint" data-a="fechaCxReset" style="color:var(--brand)">Igualar a la internación</a>`:''}</div></div>`:""}</div>
+  <div class="sec"><h3>Profesionales</h3>${N("solicitante y a cargo se cargan por separado, con buscador y matrícula cada uno.")}
+    <div class="grid">
+      <div class="f"><label>Solicitante</label><div class="prof"><div class="avatar">${ini(S.solic.nom)}</div><div style="flex:1"><b>${esc(S.solic.nom)}</b><div class="pmeta">MP ${S.solic.mat} ${S.solic===ME?'· <span class="tag brand">Vos</span>':""}</div></div></div></div>
+      <div class="f"><label>A cargo de la internación</label>
+        <label class="row" style="font-weight:400;margin-bottom:8px"><input type="checkbox" class="cb" data-m="aCargoMismo" ${S.aCargoMismo?"checked":""}> Mismo profesional que solicita</label>
+        ${S.aCargoMismo?"":`<select class="in" data-m="aCargo">${prof.map((p,i)=>`<option value="${i}" ${S.aCargo===p?"selected":""}>${esc(p.nom)} — MP ${p.mat}</option>`).join("")}</select>`}
+      </div>
+    </div>
+    <div class="f${miss("servicio")}" style="margin-top:14px" data-f="servicio"><label>Servicio <span class="req">*</span></label>
+      ${(S.aCargoMismo?ME:S.aCargo).servicios.length===1?`<div class="row"><span class="tag brand">${esc(S.servicio)}</span></div>`:chips((S.aCargoMismo?ME:S.aCargo).servicios,S.servicio,"servicio")}</div>
+  </div>
+  <div class="sec">
+    <div class="f${miss("hc")}" data-f="hc"><label>Resumen de historia clínica <span class="req">*</span></label><textarea class="in" data-m="hc" maxlength="500" placeholder="Antecedentes relevantes, medicación habitual, alergias…">${esc(S.hc)}</textarea><div class="hint"><span id="hcN">${S.hc.length}</span>/500</div></div>
+
+  </div>
+  ${navBar()}`;
+}
+function docRow(d,m,i,j){
+  return `<div class="doc ${d.on?"on":""}"><label class="row grow" style="gap:10px;cursor:pointer;flex-wrap:nowrap"><input type="checkbox" class="cb" data-m="${m}" ${i!=null?`data-i="${i}"`:""} data-j="${j}" ${d.on?"checked":""}><span>${esc(d.n)}<br><small>${esc(d.f)}</small></span></label>
+   <span class="docact">${[["visibility","Ver",`Vista previa de ${d.f}`],["print","Imprimir",`Imprimiendo ${d.f}`],["mail","Enviar por mail",`${d.f} enviado al mail del paciente`],["download","Descargar",`Descargando ${d.f}`]].map(([ic,t,msg])=>`<button class="icbtn" title="${t}" data-a="toast" data-t="${esc(msg)}"><span class="mi">${ic}</span></button>`).join("")}</span></div>`;
+}
+const docBulk=()=>`<div class="row" style="margin-top:10px"><button class="btn sm" data-a="toast" data-t="Se envían todos los PDF al mail del paciente"><span class="mi">mail</span> Enviar todo por mail</button><button class="btn sm" data-a="toast" data-t="QR para descargar la documentación en el celular"><span class="mi">qr_code_2</span> Mostrar QR</button><button class="btn sm" data-a="toast" data-t="Imprimiendo toda la documentación"><span class="mi">print</span> Imprimir todo</button></div>`;
+function procBlock(p,i){
+  const allOn=p.docs.every(d=>d.on);
+  return `<div class="proc"><div class="proc-h"><div style="flex:1"><b>${esc(p.n)}</b><div class="pmeta">Asociado a: ${motivo()?esc(motivo()):'<span style="color:var(--warn)">cargá el motivo en el paso 2</span>'}</div></div>
+    ${S.procs.length>1?`<label class="row" style="font-size:13px"><input type="radio" name="princ" data-m="principal" data-i="${i}" ${p.principal?"checked":""}> Principal</label>`:'<span class="tag brand">Principal</span>'}
+    <button class="icbtn" data-a="delProc" data-i="${i}" title="Quitar">✕</button></div>
+   <div class="proc-b"><div>
+     <p class="mini">Ítems prefacturables</p>
+     <table class="tbl"><thead><tr><th>Ítem</th><th>Cant.</th><th>Presupuesto</th><th></th></tr></thead><tbody>
+     ${p.items.map((it,j)=>`<tr><td><span style="color:var(--faint)">${it.code}</span> ${esc(it.n)}</td><td><input class="in qty" type="number" min="1" data-m="qty" data-i="${i}" data-j="${j}" value="${it.qty}"></td><td><input type="checkbox" class="cb" data-m="presu" data-i="${i}" data-j="${j}" ${it.presu?"checked":""}></td><td><button class="icbtn" data-a="delItem" data-i="${i}" data-j="${j}">✕</button></td></tr>`).join("")}
+     </tbody></table>
+     <p class="mini" style="margin-top:16px">Días de estadía sugeridos</p>
+     <table class="tbl"><tbody>${p.dias.map((d,j)=>`<tr><td>${esc(d.cat)}</td><td><input class="in qty" type="number" min="0" data-m="dias" data-i="${i}" data-j="${j}" value="${d.d}"> días</td></tr>`).join("")}</tbody></table>
+   </div><div>
+     <div class="row" style="justify-content:space-between;margin-bottom:8px"><p class="mini" style="margin:0">Documentación para el paciente</p>
+       <button class="btn ghost sm" data-a="allDocs" data-i="${i}">${allOn?"Desmarcar todo":"Marcar todo entregado"}</button></div>
+     <div class="docs">${p.docs.map((d,j)=>docRow(d,"doc",i,j)).join("")}</div>
+     ${docBulk()}
+   </div></div></div>`;
+}
+function stepProc(){
+  const clin=!needsProc();
+  return `<h2 class="h">Plan</h2><p class="sub">${esc(S.tipo||"")}${motivo()?" · "+esc(motivo()):""}</p>
+  ${clin?`<div class="sec"><div class="urg ${S.needProc?"on":""}" style="${S.needProc?"background:var(--brand-50);border-color:var(--brand)":""}"><button class="sw ${S.needProc?"on":""}" data-a="needProc" aria-label="Necesita un procedimiento"></button>
+    <div><b>¿Necesita un procedimiento?</b>${S.needProc?"":`<div class="pmeta">Endoscopía, vía central, punción…</div>`}</div></div></div>`:""}
+  ${!clin||S.needProc?`<div class="sec${miss("procs")}" data-f="procs"><div class="search" id="procSearch"><span class="mag mi">search</span><input id="procQ" class="in" placeholder="Buscar procedimiento (ej. apendi, rodilla, cesárea)…" autocomplete="off"><div id="procAc"></div></div>
+    ${S.procs.length?S.procs.map(procBlock).join(""):(clin?"":`<div class="empty" style="margin-top:14px">Sin procedimientos todavía.</div>`)}</div>`:""}
+  ${clin&&!S.procs.length?`<div class="sec"><h3><span class="mi">receipt_long</span> Facturación <span class="opt">automática</span></h3>
+    <table class="tbl"><thead><tr><th>Ítem</th><th>Cantidad</th><th>Origen</th></tr></thead><tbody>
+    <tr><td><span style="color:var(--faint)">400101</span> Arancel global por 24 h de atención</td><td>${S.diasProb||1} día(s)</td><td><span class="pmeta">Módulo clínico</span></td></tr>
+    <tr><td>Día de estadía · ${/Coronaria|Terapia/.test(S.sector||"")?"Cuidados críticos":/VIP/.test(S.sector||"")?"Habitación VIP":"Sala común"}</td><td>${S.diasProb||1}</td><td><span class="pmeta">Sector</span></td></tr></tbody></table>
+    ${N("para llegar a esto hay que cargar el «procedimiento» Internación no quirúrgica o el comodín Nuevo procedimiento; además pide consentimiento de anestesia.")}</div>
+  <div class="sec"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h3 style="margin:0">Documentación para el paciente <span style="color:var(--danger)">*</span></h3><button class="btn ghost sm" data-a="allDocsClin">${S.docsClin.every(d=>d.on)?"Desmarcar todo":"Marcar todo entregado"}</button></div>
+    <div class="docs">${S.docsClin.map((d,j)=>docRow(d,"docClin",null,j)).join("")}</div>${docBulk()}</div>`:""}
+  ${S.procs.length||clin?`<div class="sec${miss("docs")}" data-f="docs"><h3>Confirmación <span style="color:var(--danger)">*</span></h3>
+    <label class="row"><input type="checkbox" class="cb" data-m="docComprende" ${S.docComprende?"checked":""}> El paciente recibió y comprende la documentación.</label></div>`:""}
+  <div class="sec grid">
+    <div class="f${miss("sector")}" data-f="sector"><label>Sector de ingreso <span class="req">*</span></label>${clin?N("para internación no quirúrgica no aparecen Unidad Coronaria ni Terapia."):""}${chips(sectores(),S.sector,"sector",miss("sector"))}${S.sector?`<div class="hint">${SECTOR_INFO[S.sector]} · Obispo Oro</div>`:""}</div>
+    <div class="f"><label>Días probables</label><input type="number" min="0" class="in" style="max-width:140px" data-m="diasProb" value="${S.diasProb??""}"><div class="hint" id="diasHint">${S.diasManual?`<a href="#" data-a="diasReset" style="color:var(--brand)">Volver al sugerido (${diasFuente()[0]??"—"})</a>`:diasFuente()[1]?`Sugerido · ${diasFuente()[1].replace(/^según los días de estadía de los procedimientos$/,"por procedimiento").replace(/^estadía promedio para /,"promedio ").replace(/ \(el procedimiento no alarga la estadía\)/,"").replace(/^mínimo del módulo de internación; ajustalo$/,"mínimo")}`:""}</div></div>
+  </div>
+  <div class="sec f${miss("resumenProc")}" data-f="resumenProc"><label>${clin?"Indicaciones":"Resumen del procedimiento"} ${clin?'<span class="opt" style="color:var(--faint);font-weight:400">opcional</span>':'<span class="req">*</span>'}</label><textarea class="in" data-m="resumenProc" placeholder="${clin?"Ej.: Labetalol EV, monitoreo de TA, laboratorio y ECG…":"Ej.: Apendicectomía programada. Ayuno de 8 h, suspender anticoagulantes…"}">${esc(S.resumenProc)}</textarea>${clin?"":N("es obligatorio pero no tiene asterisco: te enterás al guardar.")}</div>
+  ${navBar()}`;
+}
+function stepAdic(){
+  return `<h2 class="h">Adicionales <span class="opt" style="font-size:13px;font-weight:400;color:var(--faint)">opcional</span></h2>${N("estas pestañas se abren pero dicen «Debe guardar los datos…»; Prótesis abre una ventana dentro de otra.")}
+  <div class="sec"><h3>Prótesis y materiales</h3>
+    <div class="search"><span class="mag mi">search</span><input id="protQ" class="in" placeholder="Buscar prótesis o material…" autocomplete="off"><div id="protAc"></div></div>
+    ${S.protesis.length?`<div style="overflow-x:auto"><table class="tbl" style="margin-top:10px"><thead><tr><th>Material</th><th>Cant.</th><th>Marca</th><th>Fabricación</th><th>Provista por tercero</th><th></th></tr></thead><tbody>${S.protesis.map((m,i)=>`<tr><td>${esc(m.n)}<br><small class="pmeta">Para: ${esc((S.procs.find(p=>p.principal)||{}).n||"procedimiento principal")}</small></td><td><input class="in qty" type="number" min="1" data-m="protQty" data-i="${i}" value="${m.q}"></td>
+      <td><select class="in" style="min-width:130px" data-m="protMarca" data-i="${i}">${MARCAS.map(x=>`<option ${m.marca===x?"selected":""}>${x}</option>`).join("")}</select></td>
+      <td><div class="chips">${["Nacional","Importada"].map(x=>`<button class="chip ${m.fab===x?"on":""}" data-a="protFab" data-i="${i}" data-v="${x}">${x}</button>`).join("")}</div></td>
+      <td><input type="checkbox" class="cb" data-m="protTer" data-i="${i}" ${m.ter?"checked":""}></td><td><button class="icbtn" data-a="delProt" data-i="${i}">✕</button></td></tr>`).join("")}</tbody></table></div>
+      <textarea class="in" style="margin-top:10px;min-height:60px" data-m="protObs" placeholder="Observaciones del pedido (medidas, preferencia de proveedor…)">${esc(S.protObs)}</textarea>`:""}
+  </div>
+  ${(()=>{const sug=new Set(S.procs.flatMap(p=>p.preqSug||[]));const por=k=>S.procs.filter(p=>(p.preqSug||[]).includes(k)).map(p=>p.n).join(", ");
+   if(!S.procs.length)return `<div class="sec"><h3>Estudios prequirúrgicos</h3><div class="empty"><span class="mi" style="color:var(--faint)">lock</span> Se habilitan con un procedimiento.</div></div>`;
+   if(!sug.size)return `<div class="sec"><h3>Estudios prequirúrgicos</h3><div class="empty">No requiere prequirúrgicos.<br><button class="btn ghost sm" style="margin-top:6px" data-a="toast" data-t="Buscador de prestaciones individuales">+ Agregar prestación individual</button></div></div>`;
+   return `<div class="sec"><h3>Estudios prequirúrgicos <span class="opt">según procedimiento</span></h3>
+    <div class="docs">${PREQ.map(([n,d],i)=>sug.has(i)?`<label class="doc ${S.preq.has(i)?"on":""}"><input type="checkbox" class="cb" data-m="preq" data-i="${i}" ${S.preq.has(i)?"checked":""}><div class="grow">${n}<br><small>${d}</small></div><span class="tag brand">Para ${esc(por(i))}</span></label>`:"").join("")}</div>
+    <button class="btn ghost sm" style="margin-top:6px" data-a="toast" data-t="Buscador de prestaciones individuales">+ Prestación individual</button></div>`})()}
+  <div class="sec"><h3>Aislamiento</h3>${chips(AISL,S.aisl,"aisl")}
+    ${S.aisl!=="Ninguno"?`<div class="grid" style="margin-top:12px"><div class="f"><label>Motivo</label><select class="in" data-m="aislMot"><option value="">Elegir motivo…</option>${AISL_MOT.map(x=>`<option ${S.aislMot===x?"selected":""}>${x}</option>`).join("")}</select></div>
+      <div class="f"><label>Observación</label><input class="in" data-m="aislObs" value="${esc(S.aislObs)}" placeholder="Ej.: KPC positivo en cultivo previo"></div></div>
+      `:""}</div>
+  <div class="sec f"><label>Observaciones para Admisión</label><textarea class="in" data-m="obs" placeholder="Preferencia de habitación, acompañante, requerimientos especiales…">${esc(S.obs)}</textarea></div>
+  ${navBar()}`;
+}
+function stepRev(){
+  const pend=RQ().filter(r=>!r[3]());
+  if(S.sent) return `<div style="text-align:center;padding:20px 0"><div style="font-size:44px">✅</div><h2 class="h">Preadmisión enviada</h2><p class="sub">Nº PRE-2026-004812</p></div>
+    <div class="timeline">${[["Enviada","done"],["Autorización cobertura","cur"],["Cama asignada",""],["Paciente internado",""]].map(([t,c],i)=>`<div class="tl ${c}"><div class="num">${c==="done"?"✓":i+1}</div>${t}</div>`).join("")}</div>
+    <p class="sub" style="text-align:center">Te avisamos cuando cambie el estado.</p>
+    <div class="row" style="justify-content:center"><button class="btn" data-a="toast" data-t="Documentación enviada al paciente">✉ Reenviar documentación al paciente</button><button class="btn primary" data-a="reset">+ Nueva preadmisión</button></div>`;
+  const blk=(t,i,rows)=>`<div class="sec"><h3 style="justify-content:space-between">${t}<button class="btn ghost sm" data-a="go" data-i="${i}">Editar</button></h3>${rows.map(([k,v])=>`<div class="sumrow"><span>${k}</span><span>${v?esc(v):'<span style="color:var(--danger)">Falta</span>'}</span></div>`).join("")}</div>`;
+  return `<h2 class="h">Revisar y enviar</h2><p class="sub">${pend.length?(pend.length===1?"Falta <b>1</b> dato.":`Faltan <b>${pend.length}</b> datos.`):"Todo listo."}</p>
+  ${pend.length?`<div class="chips" style="margin-bottom:8px">${pend.map(r=>`<button class="chip" style="border-color:var(--danger);color:var(--danger)" data-a="jump" data-id="${r[0]}" data-i="${r[2]}">${r[1]} →</button>`).join("")}</div>`:""}
+  ${blk("Paciente",0,[["Nombre",S.patient?.nom],["DNI",S.patient?.dni],["Cobertura",S.patient&&`${S.patient.cob} · ${S.patient.afil}`]])}
+  ${blk("Internación",1,[["Prioridad",S.urgente?"URGENTE":"Programado"],["Tipo",S.tipo],["Sucursal",S.sucursal],["Origen",S.origen],["Fecha probable",S.fecha&&fmtDate(S.fecha)],["Profesional a cargo",(S.aCargoMismo?S.solic:S.aCargo).nom],["Servicio",S.servicio],["Motivo de internación",motivo()]])}
+  ${blk("Procedimiento",2,[["Procedimientos",S.procs.map(p=>p.n+(p.principal?" (principal)":"")).join(", ")||(needsProc()?"":"No requiere (internación clínica)")],["Sector de ingreso",S.sector],["Días probables",S.diasProb!=null?String(S.diasProb):""],["Documentación",allDocs().length&&allDocs().every(d=>d.on)&&S.docComprende?"Entregada y comprendida":""]])}
+  ${blk("Adicionales",3,[["Prótesis/materiales",S.protesis.map(m=>`${m.q}× ${m.n}`).join(", ")||"Ninguno"],["Aislamiento",S.aisl],["Observaciones",S.obs||"—"]])}
+  <div class="nav"><button class="btn" data-a="prev">← Anterior</button><button class="btn primary" data-a="send" ${pend.length?"disabled":""}>Enviar preadmisión a Admisión</button></div>`;
+}
+function render(){
+  recalcDias();
+  if(!S.fechaCxManual)S.fechaCx=S.fecha;
+  renderStrip();renderSteps();renderSide();
+  $("#stepCard").innerHTML=[stepPaciente,stepInternacion,stepProc,stepAdic,stepRev][S.step]();
+  bindAc();
+}
+
+/* ---------- autocompletar ---------- */
+function ac(inputId,boxId,source,onPick,label){
+  const inp=document.getElementById(inputId);if(!inp)return;const box=document.getElementById(boxId);let hl=0,list=[];
+  const draw=()=>{const q=norm(inp.value.trim());list=q.length>=3?source.filter(x=>norm(label(x)).includes(q)).slice(0,8):[];
+    box.innerHTML=list.length?`<div class="ac">${list.map((x,i)=>`<button data-k="${i}" class="${i===hl?"hl":""}">${esc(label(x))}${x.items?` <small>· ${x.items.length} ítems · ${x.dias.reduce((a,d)=>a+d[1],0)} días</small>`:""}</button>`).join("")}</div>`:(q.length>0&&q.length<3?`<div class="ac"><button disabled><small>Escribí al menos 3 letras…</small></button></div>`:"")};
+  inp.addEventListener("input",()=>{hl=0;draw()});
+  inp.addEventListener("keydown",e=>{if(!list.length)return;if(e.key==="ArrowDown"){hl=Math.min(hl+1,list.length-1);draw();e.preventDefault()}else if(e.key==="ArrowUp"){hl=Math.max(hl-1,0);draw();e.preventDefault()}else if(e.key==="Enter"){onPick(list[hl]);e.preventDefault()}else if(e.key==="Escape"){box.innerHTML=""}});
+  box.addEventListener("mousedown",e=>{const b=e.target.closest("button[data-k]");if(b){e.preventDefault();onPick(list[+b.dataset.k])}});
+  inp.addEventListener("blur",()=>setTimeout(()=>box.innerHTML="",150));
+}
+const DIAS_DX={"I16.1":3,"I16.0":2,"I16.9":2,"J18.9":5,"I50.0":5,"I63.9":7,"A41.9":7,"N39.0":3,"E11.1":3,"J44.1":5,"I21.9":5};
+function diasBase(){
+  if(S.dxSel&&DIAS_DX[S.dxSel[0]])return [DIAS_DX[S.dxSel[0]],`estadía promedio para ${S.dxSel[1].toLowerCase()}`];
+  if(S.tipo)return [1,"mínimo del módulo de internación; ajustalo"];
+  return [null,""];
+}
+function diasFuente(){
+  if(S.procs.length){const sum=S.procs.reduce((a,p)=>a+p.dias.reduce((b,d)=>b+(+d.d||0),0),0);
+    if(!needsProc()){const bs=diasBase();if((bs[0]||0)>=sum)return [bs[0],bs[1]+" (el procedimiento no alarga la estadía)"]}
+    return [sum,"según los días de estadía de los procedimientos"];}
+  return diasBase();
+}
+function recalcDias(){if(!S.diasManual)S.diasProb=diasFuente()[0]}
+function addProc(p){
+  if(S.procs.some(x=>x.n===p.n)){toast("Ese procedimiento ya está agregado");return}
+  const docs=[[`${p.n} — Anexo I`,`CP1-${p.n.toUpperCase().replace(/ /g,"_")}.pdf`],...DOCS_BASE].map(([n,f])=>({n,f,on:false}));
+  S.procs.push({n:p.n,preqSug:p.preq||[],principal:S.procs.length===0,items:p.items.map(([code,n])=>({code,n,qty:1,presu:false})),dias:p.dias.map(([cat,d])=>({cat,d})),docs});
+  (p.preq||[]).forEach(k=>S.preq.add(k));
+  recalcDias();
+  if(!S.tipo&&!/scop/i.test(p.n))S.tipo="Quirúrgico";
+  if(!S.sector)S.sector=SECTOR_X_TIPO[S.tipo]||"Quirófano";
+  render();touched();toast(`${p.n} agregado`);
+}
+function setTipo(t){if(!t)return;S.tipo=t;if(S.sector&&!sectores().includes(S.sector)){S.sector=null;S.sectorManual=false}if(!S.sectorManual&&SECTOR_X_TIPO[t])S.sector=SECTOR_X_TIPO[t]}
+function bindAc(){
+  ac("dxQ","dxAc",DXS,d=>{S.dxSel=d;render();touched();0},x=>`${x[1]} · ${x[2]==="Problema"?"Problema · ":""}${x[0]}`);
+  ac("procQ","procAc",PROCS,p=>{addProc(p);setTimeout(()=>document.getElementById("procQ")?.focus(),0)},x=>x.n);
+  ac("protQ","protAc",PROTESIS,m=>{S.protesis.push({n:m,q:1,marca:"A definir",fab:null,ter:false});render();touched()},x=>x);
+}
+
+/* ---------- eventos ---------- */
+function go(i){S.step=Math.max(0,Math.min(4,i));S.visited.add(S.step);render();window.scrollTo(0,0);document.scrollingElement.scrollTop=0}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a,i=+b.dataset.i,j=+b.dataset.j;
+  if(b.tagName==="LABEL")return;
+  e.preventDefault();
+  switch(a){
+    case"go":go(i);break;
+    case"next":S.tried.add(S.step);go(S.step+1);break;
+    case"prev":go(S.step-1);break;
+    case"jump":{S.tried.add(i);go(i);setTimeout(()=>{const el=document.querySelector(`[data-f="${b.dataset.id}"]`);if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.classList.add("flash");el.querySelector("input,textarea,select")?.focus({preventScroll:true})}},60);break}
+    case"set":S[b.dataset.k]=b.dataset.v;if(b.dataset.k==="tipo"){if(S.sector&&!sectores().includes(S.sector)){S.sector=null;S.sectorManual=false}if(!S.sectorManual&&SECTOR_X_TIPO[b.dataset.v])S.sector=SECTOR_X_TIPO[b.dataset.v]}if(b.dataset.k==="sector")S.sectorManual=true;if(b.dataset.k==="origen"&&b.dataset.v==="Guardia"&&!S.urgente){S.urgente=true;S.fecha=iso(today);toast("Marcado urgente, ingreso hoy")}render();touched();break;
+    case"allDocsClin":{const v=!S.docsClin.every(d=>d.on);S.docsClin.forEach(d=>d.on=v);render();touched();break}
+    case"urg":S.urgente=!S.urgente;render();touched();break;
+    case"fecha":S.fecha=addDays(+b.dataset.n);render();touched();break;
+    case"prog":{const g=PROG.find(x=>x[0]===b.dataset.v);S.prog=S.prog===g[0]?null:g[0];if(S.prog)setTipo(g[2]);render();touched();if(S.prog)toast(g[0]);break}
+    case"needProc":S.needProc=!S.needProc;if(!S.needProc&&S.procs.length){S.procs=[];S.preq.clear();toast("Se quitaron los procedimientos cargados")}recalcDias();render();touched();if(S.needProc)setTimeout(()=>document.getElementById("procQ")?.focus(),0);break;
+    case"fechaCxReset":S.fechaCxManual=false;render();touched();break;
+    case"diasReset":S.diasManual=false;recalcDias();render();touched();break;
+    case"progClear":S.prog=null;render();touched();break;
+    case"freq":{const f=FREQ[i];if(S.freqProc){S.procs=S.procs.filter(p=>p.n!==S.freqProc);if(S.procs.length&&!S.procs.some(p=>p.principal))S.procs[0].principal=true;recalcDias();S.freqProc=null}S.freqProc=f.proc||null;S.sectorManual=false;S.sector=null;S.prog=f.prog||null;S.dxSel=f.dx;setTipo(f.tipo);if(f.proc){const pr=PROCS.find(x=>x.n===f.proc);if(pr)addProc(pr)}render();touched();toast(f.l);break}
+    case"dxClear":S.dxSel=null;render();touched();break;
+    case"changeP":S.changing=!S.changing;S.q="";render();if(S.changing)setTimeout(()=>document.getElementById("pq")?.focus(),0);break;
+    case"pick":S.patient=PACIENTES[i];S.q="";S.changing=false;render();touched();toast("Paciente seleccionado");break;
+    case"addContacto":S.contactos.push({nom:"",rel:"",tel:""});render();break;
+    case"delProc":S.procs.splice(i,1);if(S.procs.length&&!S.procs.some(p=>p.principal))S.procs[0].principal=true;recalcDias();render();touched();break;
+    case"delItem":S.procs[i].items.splice(j,1);render();touched();break;
+    case"allDocs":{const p=S.procs[i];const v=!p.docs.every(d=>d.on);p.docs.forEach(d=>d.on=v);render();touched();break}
+    case"delProt":S.protesis.splice(i,1);render();touched();break;
+    case"protFab":S.protesis[i].fab=b.dataset.v;render();touched();break;
+    case"send":if(RQ().every(r=>r[3]())){S.sent=true;S.step=4;render();toast("Preadmisión enviada a Admisión")}break;
+    case"reset":location.reload();break;
+    case"toggleNotes":{const on=document.body.classList.toggle("notes-on");const nb=$("#notesBtn");nb.classList.toggle("on",on);nb.lastElementChild.textContent=on?" Ocultar notas":" Mostrar notas";break}
+    case"notes":$("#drawer").classList.toggle("open");break;
+    case"exit":toast("Borrador guardado");break;
+    case"toast":toast(b.dataset.t);break;
+  }
+});
+document.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.id==="pq"){S.q=t.value;const pos=t.selectionStart;render();const n=document.getElementById("pq");n.focus();n.setSelectionRange(pos,pos);return}
+  const m=t.dataset.m;if(!m)return;const i=+t.dataset.i,j=+t.dataset.j;
+  switch(m){
+    case"hc":S[m]=t.value;document.getElementById("hcN").textContent=t.value.length;break;
+    case"dx":S.dx=t.value;break;
+    case"resumenProc":case"obs":case"protObs":case"aislObs":S[m]=t.value;break;
+    case"fecha":S.fecha=t.value;if(!S.fechaCxManual){S.fechaCx=t.value;const c=document.querySelector("[data-m=fechaCx]");if(c)c.value=t.value}renderStrip();break;
+    case"fechaCx":S.fechaCx=t.value;S.fechaCxManual=t.value!==S.fecha;break;
+    case"diasProb":S.diasProb=t.value===""?null:+t.value;S.diasManual=t.value!=="";break;
+    case"qty":S.procs[i].items[j].qty=+t.value;break;
+    case"dias":S.procs[i].dias[j].d=+t.value;recalcDias();{const el=document.querySelector("[data-m=diasProb]");if(el)el.value=S.diasProb??""}break;
+    case"protQty":S.protesis[i].q=+t.value;break;
+    case"contacto":S.contactos[i][t.dataset.f]=t.value;break;
+    default:return;
+  }
+  touched();
+});
+document.addEventListener("change",e=>{
+  const t=e.target,m=t.dataset.m;if(!m)return;const i=+t.dataset.i,j=+t.dataset.j;
+  switch(m){
+    case"aCargoMismo":S.aCargoMismo=t.checked;if(t.checked){S.aCargo=ME;S.servicio=ME.servicios[0]}render();break;
+    case"aCargo":{const p=[ME,...OTROS_PROF][+t.value];S.aCargo=p;S.servicio=p.servicios.length===1?p.servicios[0]:null;render();break}
+    case"presu":S.procs[i].items[j].presu=t.checked;break;
+    case"garante":S.garante=t.checked;break;
+    case"protMarca":S.protesis[i].marca=t.value;break;
+    case"protTer":S.protesis[i].ter=t.checked;break;
+    case"aislMot":S.aislMot=t.value||null;break;
+    case"preq":t.checked?S.preq.add(i):S.preq.delete(i);render();break;
+    case"doc":S.procs[i].docs[j].on=t.checked;render();break;
+    case"docClin":S.docsClin[j].on=t.checked;render();break;
+    case"docComprende":S.docComprende=t.checked;render();break;
+    case"principal":S.procs.forEach((p,k)=>p.principal=k===i);render();break;
+    default:return;
+  }
+  touched();
+});
+document.addEventListener("keydown",e=>{
+  if(e.altKey&&e.key==="ArrowRight"){S.tried.add(S.step);go(S.step+1)}
+  if(e.altKey&&e.key==="ArrowLeft")go(S.step-1);
+  if(e.key==="Escape")$("#drawer").classList.remove("open");
+});
+
+/* ---------- notas de diseño ---------- */
+const NOTES=[
+ ["«Procedimiento» se usa para todo, incluso cuando no hay procedimiento","Prueba en stage: crisis hipertensiva por guardia. Con «crisis» no aparece nada; con «hipertens» solo «Ascitis hipertensión portal (hallazgo clínico)». Hay que adivinar «Internación no quirúrgica» o usar el comodín «Nuevo procedimiento», que trae exactamente lo mismo (arancel 400101 + sala común 1 día). El catálogo de procedimientos mezcla diagnósticos («Neumonía con derrame pleural (hallazgo clínico)») con cirugías («Neumonectomía»). El modelo está pensado para internaciones quirúrgicas.","Se separa el <b>motivo de internación</b> (diagnóstico CIE-10, siempre obligatorio) del <b>procedimiento</b> (solo cuando hay uno). En clínica, los ítems prefacturables salen solos del módulo de internación clínica, sin inventar un procedimiento."],
+ ["Cargar el motivo debería llevar un clic","Hoy el diagnóstico es texto libre y en la búsqueda de procedimientos hay que adivinar el término. Además, la mayoría de las internaciones son programadas: el médico piensa en «angioplastia programada», no en «isquemia de miembros inferiores».","Sugerencias de un clic (cirugía, procedimiento o estudio programado, parto, internación clínica) y «Tus frecuentes» por profesional, que cargan motivo, tipo, procedimiento y diagnóstico de base en un paso. El buscador usa la lista de problemas y CIE-10."],
+ ["El diagnóstico no se conecta con nada","El diagnóstico se escribe como texto libre en «Datos Internación», pero en «Procedimientos» la columna «Problema asociado» queda en «-» y no hay forma de cargarla (el menú solo ofrece «Marcar como principal» o «Eliminar»).","El motivo se elige de una lista codificada y cada procedimiento queda asociado a él automáticamente."],
+ ["Documentación quirúrgica en una internación clínica","Con «Internación no quirúrgica» se pide igual el «Consentimiento informado de anestesia».","La documentación depende del tipo: en clínica no aparece el consentimiento de anestesia."],
+ ["Los sectores dependen de un procedimiento ficticio","El sector que se ofrece cambia según el «procedimiento» elegido. Para la internación no quirúrgica aparecen 2º a 6º piso, «Altas incompletas» y «Quirófano cesárea», pero no la Unidad Coronaria ni Terapia para una emergencia hipertensiva.","Los sectores dependen del tipo de internación y del motivo, e incluyen las unidades críticas cuando corresponde."],
+ ["La prioridad no refleja lo que marcaste","Al activar «Es urgente», el encabezado sigue diciendo PRIORIDAD: PROGRAMADO hasta que guardás.","La franja del paciente cambia al instante a URGENTE."],
+ ["Aviso de preadmisión duplicada sin contexto","«El paciente tiene preadmisiones en curso. ¿Desea continuar?», sin decir cuál ni dar un link para abrirla.","Se muestra la preadmisión existente (fecha, motivo, estado) con «Abrir» o «Crear otra igual»."],
+ ["Pestañas que se abren pero no dejan hacer nada","Prótesis, Adicionales y Observaciones muestran «Debe guardar los datos…» recién después del clic.","Flujo guiado con borrador automático: todo se puede cargar en cualquier orden, sin «Guardar» previo."],
+ ["Pestañas sin permiso visibles para el médico","Autorizaciones y Movimientos de cama aparecen y tiran «No tiene permisos para la sección».","Se ocultan según el rol. El médico ve el estado como línea de tiempo después de enviar."],
+ ["Buscar un paciente lleva 4 campos y 3 clics","Tipo de documento + DNI + nombre + apellido → Buscar → clic en la fila → «Seleccionar» (que aparece abajo a la derecha).","El buscador sigue en la pantalla de Preadmisiones, como hoy. Dentro de la preadmisión, «Cambiar paciente» abre un buscador único (DNI o nombre) con resultados en vivo: un clic."],
+ ["Listas cortas escondidas en menús desplegables","Sucursal (3), Origen (4) y Tipo (8) arrancan en «--SELECCIONAR--».","Chips y tarjetas visibles: se elige de un vistazo, con un clic."],
+ ["No se sabe qué falta hasta que algo falla","Los obligatorios se marcan en rojo recién al tocarlos; no hay vista general.","Checklist en vivo con progreso; cada pendiente lleva al campo exacto."],
+ ["Datos del profesional duplicados","Solicitante y a cargo se repiten con buscador y matrícula; el servicio con una sola opción no se autocompleta.","«Vos» precargado, casilla «mismo profesional» y servicio automático si hay uno solo."],
+ ["Documentación como lista técnica","6 casillas con nombre de archivo y 2 interruptores sueltos más abajo.","Checklist «Marcar todo entregado», vista previa, envío por mail o QR y una sola confirmación."],
+ ["Procedimiento sin feedback","Hay que elegir en un diálogo, apretar «Seleccionar» y adivinar que abajo apareció el detalle.","Autocompletado con teclado; al elegir se precargan ítems, días, sector y documentación, con un aviso."],
+ ["Encabezado con datos vacíos","Expediente, Fecha y Estado muestran «-» y ocupan la parte más visible.","Franja fija del paciente con cobertura, prioridad, tipo y fecha; arriba queda solo lo útil."],
+ ["Acciones repetidas y nada fijo","«Salir / Guardar» al final de cada pestaña; las pestañas se pierden al hacer scroll.","Pasos y resumen fijos al costado; estado de guardado siempre visible; atajos de teclado."],
+ ["Errores de a uno, como avisos que desaparecen","Al guardar sale «Falta indicar el Sector…»; se corrige, se guarda y aparece «Falta cargar el Resumen…». Cada aviso te cambia de pestaña.","Todos los faltantes juntos en la lista de control, antes de enviar."],
+ ["Obligatorios que no dicen que lo son","«Resumen de procedimientos» no tiene asterisco, pero sin eso no se puede guardar.","Todo lo obligatorio está marcado desde el principio."],
+ ["El aviso de cobertura llega al final","«La cobertura no está activa o no tiene convenio vigente» aparece recién al guardar, después de cargar todo.","Se avisa al elegir al paciente, sin bloquear la carga."],
+ ["Ventanas arriba de ventanas","Prótesis: diálogo → «Agregar» → otro diálogo de búsqueda → «Seleccionar» → volver → completar marca y fabricación → «Guardar».","Buscador directo en la misma pantalla; marca, fabricación y tercero en la misma fila."],
+ ["Secciones que aparecen después de guardar","«Fecha probable de cirugía» y «Prequirúrgicos» solo se ven después de elegir el tipo o de guardar.","Se muestran en contexto (si es quirúrgico) y sin pedir que guardes antes."],
+ ["Un solo camino para todas las internaciones","Una internación clínica (por ejemplo, crisis hipertensiva por guardia) pasa por las mismas pestañas que una cirugía.","El formulario se adapta al tipo: en clínica el procedimiento es opcional; si el origen es Guardia, se sugiere urgente para hoy y se elige el sector solo."]];
+$("#notesPn").innerHTML=`<div class="row" style="justify-content:space-between"><h2 class="h">Qué cambia y por qué</h2><button class="btn sm" data-a="notes">Cerrar</button></div>
+<p class="sub">Problemas encontrados en el sistema actual (stage, 18/11/2026) y la respuesta de este prototipo.</p>
+${NOTES.map((n,i)=>`<div class="note" ${i===0?'style="background:var(--warn-50);border-radius:8px;padding:12px;border:0"':""}><span class="n">${i+1}</span><div><b>${n[0]}</b><p class="bad">Hoy: ${n[1]}</p><p class="good">Propuesta: ${n[2]}</p></div></div>`).join("")}
+<p class="pmeta" style="margin-top:16px">Se mantienen todos los datos del flujo actual: paciente y cobertura, contacto, sucursal, origen, urgencia, tipo, fecha, profesionales, servicio, HC, diagnóstico, procedimientos (ítems, días, documentación), sector, días probables, prótesis, aislamiento y observaciones.</p>`;
+
+render();
+</script>
+
