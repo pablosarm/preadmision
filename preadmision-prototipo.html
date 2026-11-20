@@ -9,17 +9,7 @@
   --brand:#0b6bcb; --brand-50:#e8f2fc; --brand-600:#0a5bb0;
   --ok:#14804a; --ok-50:#e6f5ec; --warn:#b4610a; --warn-50:#fdf1e3; --danger:#c62f2f; --danger-50:#fdeaea;
   --stage:#f9b428; --rail:#2d323e;
-  --r:12px; --r-sm:8px; --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.06);
-}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#0e1420; --surface:#151d2b; --surface-2:#1a2435; --line:#263247; --line-2:#33415a;
-  --text:#e7edf6; --muted:#9fb0c6; --faint:#71839b; --brand:#4b9cf0; --brand-50:#16294a; --brand-600:#6aaef3;
-  --ok:#45c07c; --ok-50:#123222; --warn:#f0a548; --warn-50:#3a2812; --danger:#f07070; --danger-50:#3a1717;
-}}
-:root[data-theme="dark"]{
-  --bg:#0e1420; --surface:#151d2b; --surface-2:#1a2435; --line:#263247; --line-2:#33415a;
-  --text:#e7edf6; --muted:#9fb0c6; --faint:#71839b; --brand:#4b9cf0; --brand-50:#16294a; --brand-600:#6aaef3;
-  --ok:#45c07c; --ok-50:#123222; --warn:#f0a548; --warn-50:#3a2812; --danger:#f07070; --danger-50:#3a1717;
+  color-scheme:light; --r:12px; --r-sm:8px; --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.06);
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -127,7 +117,7 @@ textarea.in{min-height:96px;resize:vertical}
 .res:hover{background:var(--brand-50)}
 .res .grow{flex:1;min-width:0}
 .pcard{display:flex;gap:16px;align-items:flex-start;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2)}
-.kv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
+.kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:10px}
 @media (max-width:700px){.kv{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .kv div{min-width:0;overflow-wrap:anywhere}
 .kv div small{display:block;color:var(--faint);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
@@ -379,7 +369,7 @@ function stepPaciente(){
   </div>
   </div>`:""}
   ${p?`<div class="sec"><h3>Paciente seleccionado</h3>
-    <div class="pcard"><div class="avatar">${ini(p.nom)}</div><div style="flex:1;min-width:0">
+    <div class="pcard" style="flex-wrap:wrap"><div class="avatar">${ini(p.nom)}</div><div style="flex:1;min-width:0">
       <div class="row"><b style="font-size:16px">${esc(p.nom)}</b>${p.cobWarn?'<span class="tag" style="background:var(--warn-50);color:var(--warn);border-color:transparent">⚠ Revisar cobertura</span>':'<span class="tag ok">Cobertura activa</span>'}</div>
       ${p.cobWarn?N("este aviso aparece recién al guardar, después de cargar todo.")+`<div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--warn-50);color:var(--warn);font-size:13px">⚠ ${esc(p.cobWarn)} Podés continuar; Admisión lo valida.</div>`:""}
       <div class="kv">
